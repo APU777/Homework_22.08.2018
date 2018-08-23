@@ -1,0 +1,71 @@
+﻿<Window x:Class="Homework_22._08._2018.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid ShowGridLines="False" Background="DarkOrchid">
+        <TabControl>
+            <TabItem FontSize="20" Header="Add Abonent" Background="Goldenrod">
+                <Grid ShowGridLines="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="L" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"  Background="Yellow"></TextBox>
+                    <TextBox Text ="F" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="4" Background="Red"></TextBox>
+                    <TextBox Text ="S" Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="4" Background="DeepPink"></TextBox>
+
+                    <Border  Background="Red"  CornerRadius="50"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Width="40" Style="{StaticResource ResourceKey=Sex}">
+                        <TextBlock Text="M" Margin="6,6,7,6" Style="{StaticResource ResourceKey=TBlock}"/>
+                    </Border>
+                    <Border  Background="Red"  CornerRadius="50"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Height="40" Width="40" Style="{StaticResource ResourceKey=Sex}">
+                        <TextBlock Text="W" Margin="6,6,7,6" Style="{StaticResource ResourceKey=TBlock}"/>
+                    </Border>
+
+                    <DatePicker FontSize="30" FontFamily="ComicSans MS" SelectedDate="08/31/1996" Grid.Row="5" Grid.ColumnSpan="4"/>
+                    <!--<TextBox AllowDrop="True" Name="PhCountry" Background="Green" Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="6"  >
+                    </TextBox>-->
+                    <!--<UC:AutoCompleteTextBox Grid.Row="7" Grid.ColumnSpan="4" x:Name="textBox"></UC:AutoCompleteTextBox>-->
+                    <
+
+                    <Label Grid.Row="8" Grid.RowSpan="2" Background="LightSkyBlue" Grid.ColumnSpan="18"></Label>
+
+                </Grid>
+            </TabItem>
+            <TabItem FontSize="20" Header="Show Abonent" Background="Goldenrod"></TabItem>
+
+        </TabControl>
+
+    </Grid>
+</Window>
