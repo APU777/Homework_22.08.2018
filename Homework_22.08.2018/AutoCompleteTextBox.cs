@@ -37,7 +37,7 @@ namespace CSWPFAutoCompleteTextBox.UserControls
             //load and apply style to the ComboBox.
             ResourceDictionary rd = new ResourceDictionary();
             rd.Source = new Uri("/" + this.GetType().Assembly.GetName().Name + 
-                ";component/UserControls/AutoCompleteComboBoxStyle.xaml",
+                ";component/AutoCompleteComboBoxStyle.xaml",
                  UriKind.Relative);
             this.Resources = rd;
             //disable default Text Search Function

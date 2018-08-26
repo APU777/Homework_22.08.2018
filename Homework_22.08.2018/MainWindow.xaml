@@ -1,15 +1,19 @@
-﻿<Window x:Class="Homework_22._08._2018.MainWindow"
+﻿<Window x:Name="Root" x:Class="Homework_22._08._2018.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:UC ="clr-namespace:CSWPFAutoCompleteTextBox.UserControls"
+        Title="MainWindow" Height="450" Width="800" SizeChanged="Window_SizeChanged" >
+    
     <Grid ShowGridLines="False" Background="DarkOrchid">
-        <TabControl>
-            <TabItem FontSize="20" Header="Add Abonent" Background="Goldenrod">
-                <Grid ShowGridLines="True">
+        <TabControl  >
+            <TabControl.Background>
+                <ImageBrush ImageSource="Image/board_black_line_texture_background_wood_55220_1920x1080.jpg"/>
+            </TabControl.Background>
+            <TabItem x:Name="Add" FontSize="20" Header="Add Abonent" Background="Goldenrod">
+                <Grid ShowGridLines="False">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -42,30 +46,132 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Text="L" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"  Background="Yellow"></TextBox>
-                    <TextBox Text ="F" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="4" Background="Red"></TextBox>
-                    <TextBox Text ="S" Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="4" Background="DeepPink"></TextBox>
 
-                    <Border  Background="Red"  CornerRadius="50"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Width="40" Style="{StaticResource ResourceKey=Sex}">
-                        <TextBlock Text="M" Margin="6,6,7,6" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <Border Name="BSMan" CornerRadius="100"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Height="50" Width="50" Style="{StaticResource ResourceKey=Sex}">
+                        <TextBlock Name="BSManBlock" FontSize="30" Text="M" Margin="10,3,12.6,8.6" Style="{StaticResource ResourceKey=TBlock}" IsMouseDirectlyOverChanged="BSManBlock_IsMouseDirectlyOverChanged"/>
                     </Border>
-                    <Border  Background="Red"  CornerRadius="50"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Height="40" Width="40" Style="{StaticResource ResourceKey=Sex}">
-                        <TextBlock Text="W" Margin="6,6,7,6" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <Border Name="BSWoman" CornerRadius="100"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Height="50" Width="50" Style="{StaticResource ResourceKey=Sex}">
+                        <TextBlock Name="BSWomanBlock" FontSize="30" Text="W" Margin="10,2,8.6,9.6" Style="{StaticResource ResourceKey=TBlock}" IsMouseDirectlyOverChanged="BSWomanBlock_IsMouseDirectlyOverChanged"/>
                     </Border>
 
-                    <DatePicker FontSize="30" FontFamily="ComicSans MS" SelectedDate="08/31/1996" Grid.Row="5" Grid.ColumnSpan="4"/>
-                    <!--<TextBox AllowDrop="True" Name="PhCountry" Background="Green" Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="6"  >
-                    </TextBox>-->
-                    <!--<UC:AutoCompleteTextBox Grid.Row="7" Grid.ColumnSpan="4" x:Name="textBox"></UC:AutoCompleteTextBox>-->
-                    <
+                    <TextBlock Name="LastNameBlock" Text="Last Name" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}" />
+                    <TextBlock Name="FirstNameBlock" Text="First Name" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="SurnameBlock" Text="Surname" Grid.Row="0" Grid.Column="12" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="CountryBlock" Text="Country" Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="CityBlock" Text="City" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="DateBlock" Text="Date Of Birth" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="AddressBlock" Text="Address" Grid.Row="4" Grid.Column="12" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="PhoneNumberBlock" Text="Phone Number" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="6" Style="{StaticResource ResourceKey=TBlock}"/>
 
-                    <Label Grid.Row="8" Grid.RowSpan="2" Background="LightSkyBlue" Grid.ColumnSpan="18"></Label>
+                    <DatePicker Name="DatePr" FontSize="30" FontFamily="Comic Sans MS" SelectedDate="08/31/1996" Grid.Row="5" Grid.ColumnSpan="4"/>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox x:Name="LastnameBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox  x:Name="FirstnameBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox  x:Name="SurnameBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="6">
+                        <UC:AutoCompleteTextBox  x:Name="CountryBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox  x:Name="CityBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" Grid.Column="12" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox  x:Name="AddressBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="7" Grid.Column="8" Grid.ColumnSpan="6">
+                        <UC:AutoCompleteTextBox  x:Name="PhoneNumberBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+
+
+
+                    <Button Content="ADD" VerticalAlignment="Center" FontSize="70" Style="{StaticResource GlassButton}" Grid.Row="8" Grid.RowSpan="2" Grid.ColumnSpan="18"></Button>
 
                 </Grid>
             </TabItem>
-            <TabItem FontSize="20" Header="Show Abonent" Background="Goldenrod"></TabItem>
+            <TabItem x:Name="Show" FontSize="20" Header="Show Abonent" Background="Goldenrod">
+                <Grid ShowGridLines="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
+                    <Border Name="ShowBSMan" CornerRadius="100"  Grid.Row="4" Grid.RowSpan="2" Grid.Column="13" Grid.ColumnSpan="2" Height="50" Width="50" Style="{StaticResource ResourceKey=Sex}">
+                        <TextBlock Name="ShowBSManBlock" FontSize="30" Text="M" Margin="10,0,12.6,11.6" Style="{StaticResource ResourceKey=TBlock}" IsMouseDirectlyOverChanged="ShowBSManBlock_IsMouseDirectlyOverChanged"/>
+                    </Border>
+                    <Border Name="ShowBSWoman" CornerRadius="100"  Grid.Row="4" Grid.RowSpan="2" Grid.Column="15" Grid.ColumnSpan="2" Height="50" Width="50" Style="{StaticResource ResourceKey=Sex}">
+                        <TextBlock Name="ShowBSWomanBlock" FontSize="30" Text="W" Margin="9,0,8.6,11.6" Style="{StaticResource ResourceKey=TBlock}" IsMouseDirectlyOverChanged="ShowBSWomanBlock_IsMouseDirectlyOverChanged"/>
+                    </Border>
+
+                    <TextBlock Name="ShowLastNameBlock" Text="Last Name" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}" />
+                    <TextBlock Name="ShowFirstNameBlock" Text="First Name" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="ShowSurnameBlock" Text="Surname" Grid.Row="0" Grid.Column="12" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="ShowCountryBlock" Text="Country" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="ShowCityBlock" Text="City" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="ShowDateBlock" Text="Date Of Birth" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="ShowAddressBlock" Text="Address" Grid.Row="2" Grid.Column="12" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
+                    <TextBlock Name="ShowPhoneNumberBlock" Text="Phone Number" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="6" Style="{StaticResource ResourceKey=TBlock}"/>
+
+                    <DatePicker Name="ShowDatePr" FontSize="30" FontFamily="Comic Sans MS" SelectedDate="08/31/1996" Grid.Row="5" Grid.ColumnSpan="4"/>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox x:Name="ShowLastnameBox" KeyUp="ShowLastnameBox_KeyUp" ></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox  x:Name="ShowFirstnameBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox  x:Name="ShowSurnameBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6">
+                        <UC:AutoCompleteTextBox  x:Name="ShowCountryBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox  x:Name="ShowCityBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Grid.Column="12" Grid.ColumnSpan="4">
+                        <UC:AutoCompleteTextBox  x:Name="ShowAddressBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="6">
+                        <UC:AutoCompleteTextBox  x:Name="ShowPhoneNumberBox"></UC:AutoCompleteTextBox>
+                    </StackPanel>
+
+
+                    <DataGrid Name="DataGRID" FontFamily="Comic Sans MS" Grid.Row="6" Grid.RowSpan="4" Grid.ColumnSpan="18" Loaded="DataGRID_Loaded"></DataGrid>
+                </Grid>
+            </TabItem>
         </TabControl>
-
     </Grid>
 </Window>

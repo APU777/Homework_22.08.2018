@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DTablePB.cs" />
+    <Compile Include="WorkShopPB.cs" />
     <Page Include="AutoCompleteComboBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +69,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="SettingsPB.cs" />
+    <Compile Include="VisualActionPB.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -99,6 +103,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -106,6 +111,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\milky_way_stars_space_nebula_68885_1920x1080.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BbQC2B5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\board_black_line_texture_background_wood_55220_1920x1080.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\winter_snow_bench_tree_frost_track_cover_48029_1920x1080.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
