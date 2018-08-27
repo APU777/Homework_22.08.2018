@@ -20,6 +20,8 @@ namespace Homework_22._08._2018
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static double _ScreenWidth = SystemParameters.PrimaryScreenWidth;
+        private static double _ScreenHeight = SystemParameters.PrimaryScreenHeight;
         private byte _ASize;
         private byte _BSize;
         private byte _FontASize;
@@ -28,32 +30,33 @@ namespace Homework_22._08._2018
 
         bool _CheckWindowSize = false;
         bool _CheckSexMouseOVer = true;
-
         public MainWindow()
         {
             InitializeComponent();
-
 
             this.CountryBox.AutoSuggestionList.Add("Kiev");
             this.CountryBox.AutoSuggestionList.Add("Rivne");
             this.CountryBox.AutoSuggestionList.Add("Kostopil");
             this.CountryBox.AutoSuggestionList.Add("Odessa");
-          
 
           
         }
         private void SetSizeControls()
         {
-            S_PB.DefaultSettings(LastNameBlock, BSMan, out _ASize, out _BSize, out _FontASize, out _FontBSize, _CheckWindowSize);//Add
+            if (ActualWidth >= ((_ScreenWidth * 94) / 100) && ActualHeight  >= ((_ScreenHeight * 85) / 100) || _CheckWindowSize == false)
+            {
+                S_PB.DefaultSettings(LastNameBlock, BSMan, out _ASize, out _BSize, out _FontASize, out _FontBSize, _CheckWindowSize);//Add
+                _CheckWindowSize = S_PB.DefaultSettings(ShowLastNameBlock, ShowBSMan, out _ASize, out _BSize, out _FontASize, out _FontBSize, _CheckWindowSize);//Show
+            }
+               
 
             S_PB.SetSizeNameBlock(_FirstName: FirstNameBlock, _SurName: SurnameBlock, _Size: LastNameBlock.FontSize); //Add
             S_PB.SetSizeAddressBlock(_Country: CountryBlock, _City: CityBlock, _Address: AddressBlock, _PhoneNumber: PhoneNumberBlock, _Size: LastNameBlock.FontSize);//Add
             S_PB.SetSizeLOWData(DatePr, DateBlock, BSManBlock, BSWomanBlock, LastNameBlock.FontSize);// Add
             S_PB.SetSizeBorderSex(BSMan, BSWoman, BSMan.Height);//Add
+
             S_PB.CheckSexSize(BSMan, BSWoman, BSManBlock, BSWomanBlock, _ASize, _BSize, _FontASize, _FontBSize);//Add
 
-
-            _CheckWindowSize = S_PB.DefaultSettings(ShowLastNameBlock, ShowBSMan, out _ASize, out _BSize, out _FontASize, out _FontBSize, _CheckWindowSize);//Show
 
             S_PB.SetSizeNameBlock(_FirstName: ShowFirstNameBlock, _SurName: ShowSurnameBlock, _Size: ShowLastNameBlock.FontSize); //Show
             S_PB.SetSizeAddressBlock(_Country: ShowCountryBlock, _City: ShowCityBlock, _Address: ShowAddressBlock, _PhoneNumber: ShowPhoneNumberBlock, _Size: ShowLastNameBlock.FontSize);//Show
@@ -67,6 +70,7 @@ namespace Homework_22._08._2018
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             SetSizeControls();
+            Title = ActualWidth.ToString();
 
         }
 
@@ -139,11 +143,23 @@ namespace Homework_22._08._2018
         {
             List<DTablePB> result = new List<DTablePB>(3);
             result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", 'M', "31-08-1996", "Ukraine", "Rivne", "Street", "380673339482"));
+            result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", 'M', "31-08-1996", "Ukraine", "Rivne", "Street", "3806733111139482"));
             result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", 'M', "31-08-1996", "Ukraine", "Rivne", "Street", "380673339482"));
-            result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", 'M', "31-08-1996", "Ukraine", "Rivne", "Street", "380673339482"));
+            result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", 'M', "31-0s8-1996", "Ukraine", "Rivne", "Street", "380673339482"));
 
-            DataGRID.ItemsSource = result;
-             
+            DataGRID.IsReadOnly = true;
+            DataGRID.ItemsSource = result;     
         }
+
+  
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(LastnameBox.Text.Length.ToString());
+            if (LastnameBox.Text.Length == 0)
+                LastNameBlock.Foreground = Brushes.Red;
+            else
+                LastNameBlock.Foreground = Brushes.Snow;
+        }//Регулярні вирази
     }
 }
