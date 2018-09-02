@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,20 +27,31 @@ namespace Homework_22._08._2018
         private byte _BSize;
         private byte _FontASize;
         private byte _FontBSize;
+        private bool? _BufferSex = null;
+
         private SettingsPB S_PB = new SettingsPB(); 
 
         bool _CheckWindowSize = false;
         bool _CheckSexMouseOVer = true;
+        bool _CheckColor = false;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            this.CountryBox.AutoSuggestionList.Add("Kiev");
-            this.CountryBox.AutoSuggestionList.Add("Rivne");
-            this.CountryBox.AutoSuggestionList.Add("Kostopil");
-            this.CountryBox.AutoSuggestionList.Add("Odessa");
+            SetAuxiliaryData();
+
+            for (int i = 15; i < 17; ++i)
+                ((CSWPFAutoCompleteTextBox.UserControls.AutoCompleteTextBox)((StackPanel)Grid_AddType.Children[i]).Children[0]).Text = null;
+
 
           
+        }
+        private void SetAuxiliaryData()
+        {
+            String[] _Country = System.IO.File.ReadAllLines(@"../../TEXTData/Countries.txt");
+            foreach (var C in _Country)
+                this.CountryBox.AutoSuggestionList.Add(C);
         }
         private void SetSizeControls()
         {
@@ -66,15 +78,53 @@ namespace Homework_22._08._2018
             S_PB.CheckSexSize(ShowBSMan, ShowBSWoman, ShowBSManBlock, ShowBSWomanBlock, _ASize, _BSize, _FontASize, _FontBSize);//Show
         }
 
+        private bool CheckText_in_Box()
+        {
+            Dictionary<TextBlock, bool> TBForeground = new Dictionary<TextBlock, bool>();
+            if (LastnameBox.Text.Length == 0)
+                TBForeground.Add(LastNameBlock, false);
+            else
+                TBForeground.Add(LastNameBlock, true);
+
+            if (FirstnameBox.Text.Length == 0)
+                TBForeground.Add(FirstNameBlock, false);
+            else
+                TBForeground.Add(FirstNameBlock, true);
+
+            if (SurnameBox.Text.Length == 0)
+                TBForeground.Add(SurnameBlock, false);
+            else
+                TBForeground.Add(SurnameBlock, true);
+
+            if (CountryBox.Text.Length == 0)
+                TBForeground.Add(CountryBlock, false);
+            else
+                TBForeground.Add(CountryBlock, true);
+
+            if (PhoneNumberBox.Text.Length == 0)
+                TBForeground.Add(PhoneNumberBlock, false);
+            else
+                TBForeground.Add(PhoneNumberBlock, true);
+
+            return WorkShopPB.ALERT<TextBlock, bool>(TBForeground);
+        }
+
+        private void CheckLengthTextBox()
+        {
+            if (CheckB.IsChecked == false)
+                DatePr.Text = null;
+
+            if (String.IsNullOrWhiteSpace(CityBox.Text))
+                CityBox.Text = null;
+            if (String.IsNullOrWhiteSpace(AddressBox.Text))
+                AddressBox.Text = null;
+        }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             SetSizeControls();
             Title = ActualWidth.ToString();
-
         }
-
-
 
         private void BSManBlock_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -141,25 +191,70 @@ namespace Homework_22._08._2018
 
         private void DataGRID_Loaded(object sender, RoutedEventArgs e)
         {
-            List<DTablePB> result = new List<DTablePB>(3);
-            result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", 'M', "31-08-1996", "Ukraine", "Rivne", "Street", "380673339482"));
-            result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", 'M', "31-08-1996", "Ukraine", "Rivne", "Street", "3806733111139482"));
-            result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", 'M', "31-08-1996", "Ukraine", "Rivne", "Street", "380673339482"));
-            result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", 'M', "31-0s8-1996", "Ukraine", "Rivne", "Street", "380673339482"));
+            List<DTablePB> result = new List<DTablePB>();
 
+            //result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", true, "31-08-1996", "Ukraine", "Rivne", "Street", "380673339482"));
+            //result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", true, "31-08-1996", "Ukraine", "Rivne", "Street", "3806733111139482"));
+            //result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", true, "31-08-1996", "Ukraine", "Rivne", "Street", "380673339482"));
+            //result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", true, "31-0s8-1996", "Ukraine", "Rivne", "Street", "380673339482"));
             DataGRID.IsReadOnly = true;
-            DataGRID.ItemsSource = result;     
+            DataGRID.ItemsSource = DataBaseCommon.ShowData(result);
+
         }
 
-  
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(LastnameBox.Text.Length.ToString());
-            if (LastnameBox.Text.Length == 0)
-                LastNameBlock.Foreground = Brushes.Red;
-            else
-                LastNameBlock.Foreground = Brushes.Snow;
+            _CheckColor =  CheckText_in_Box();
+
+            if (_CheckColor)
+            {
+                try
+                {
+                    CheckLengthTextBox();
+                    DataBaseCommon.AddData(Grid_AddType, _BufferSex, DatePr.Text);
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
+                finally
+                {
+                    DatePr.Text = null;
+                    BSMan.Background = null;
+                    BSWoman.Background= null;
+                    _BufferSex = null;
+                    DatePr.IsEnabled = false;
+                    CheckB.IsChecked = false;
+                }
+            }
         }//Регулярні вирази
+
+
+        private void CheckB_Click(object sender, RoutedEventArgs e)
+        {
+            if (!DatePr.IsEnabled)
+                DatePr.IsEnabled = true;
+            else
+            {
+                DatePr.IsEnabled = false;
+                DatePr.Text = null;
+            }
+        }
+
+        private void BSMan_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BSWoman.Background = null;
+            BSMan.Background = Brushes.Red;
+            _BufferSex = true;
+        }
+
+        private void BSWoman_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BSMan.Background = null;
+            BSWoman.Background = Brushes.Red;
+            _BufferSex = false;
+        }
     }
 }

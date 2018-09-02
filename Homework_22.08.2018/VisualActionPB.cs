@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace Homework_22._08._2018
@@ -38,6 +39,11 @@ namespace Homework_22._08._2018
             _TB.Dispatcher.Invoke(new Action(delegate {
                 _TB.BeginAnimation(TextBlock.FontSizeProperty, _DATextBlock);
             }));
+        }
+
+        public static void ColorChangeForBlock(TextBlock _Attribute, bool _CheckColor)
+        {
+            _Attribute.Foreground =!_CheckColor ? Brushes.Red : Brushes.Snow;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Homework_22._08._2018
 {
     class DTablePB
     {
-        public DTablePB(string _LastName, string _FirstName, string _SurName, char _Sex, string _Date, string _Country, string _City, string _Address, string _PhoneNumber)
+        public DTablePB(string _LastName, string _FirstName, string _SurName, bool? _Sex, string _Date, string _Country, string _City, string _Address, string _PhoneNumber)
         {
             this.LastName = _LastName;
             this.FirstName = _FirstName;
@@ -24,7 +24,7 @@ namespace Homework_22._08._2018
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string SurName { get; set; }
-        public char Sex { get; set; }
+        public bool? Sex { get; set; }
         public string Date { get; set; }
         public string Country { get; set; }
         public string City { get; set; }

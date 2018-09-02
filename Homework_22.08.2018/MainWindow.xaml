@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:UC ="clr-namespace:CSWPFAutoCompleteTextBox.UserControls"
-        Title="MainWindow" Height="450" Width="800" SizeChanged="Window_SizeChanged" >
+        Title="MainWindow" Height="450" Width="800" SizeChanged="Window_SizeChanged" WindowStartupLocation="CenterScreen" >
     
     <Grid ShowGridLines="False" Background="DarkOrchid">
         <TabControl>
@@ -13,7 +13,7 @@
                 <ImageBrush ImageSource="Image/board_black_line_texture_background_wood_55220_1920x1080.jpg"/>
             </TabControl.Background>
             <TabItem x:Name="Add" FontSize="20" Header="Add Abonent" Background="Goldenrod">
-                <Grid ShowGridLines="False">
+                <Grid x:Name="Grid_AddType" ShowGridLines="False">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -47,10 +47,10 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Border Name="BSMan" CornerRadius="100"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Height="50" Width="50" Style="{StaticResource ResourceKey=Sex}">
-                        <TextBlock Name="BSManBlock" FontSize="30" Text="M" Margin="10,3,12.6,8.6" Style="{StaticResource ResourceKey=TBlock}" IsMouseDirectlyOverChanged="BSManBlock_IsMouseDirectlyOverChanged"/>
+                    <Border Name="BSMan" CornerRadius="100"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Height="50" Width="50" Style="{StaticResource ResourceKey=Sex}" MouseDown="BSMan_MouseDown">
+                        <TextBlock Name="BSManBlock" FontSize="30" Text="M" Margin="10,3,12.6,8.6" Style="{StaticResource ResourceKey=TBlock}" IsMouseDirectlyOverChanged="BSManBlock_IsMouseDirectlyOverChanged" />
                     </Border>
-                    <Border Name="BSWoman" CornerRadius="100"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Height="50" Width="50" Style="{StaticResource ResourceKey=Sex}">
+                    <Border Name="BSWoman" CornerRadius="100"  Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Height="50" Width="50" Style="{StaticResource ResourceKey=Sex}" MouseDown="BSWoman_MouseDown">
                         <TextBlock Name="BSWomanBlock" FontSize="30" Text="W" Margin="10,2,8.6,9.6" Style="{StaticResource ResourceKey=TBlock}" IsMouseDirectlyOverChanged="BSWomanBlock_IsMouseDirectlyOverChanged"/>
                     </Border>
 
@@ -63,7 +63,7 @@
                     <TextBlock Name="AddressBlock" Text="Address" Grid.Row="4" Grid.Column="12" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
                     <TextBlock Name="PhoneNumberBlock" Text="Phone Number" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="6" Style="{StaticResource ResourceKey=TBlock}"/>
 
-                    <DatePicker Name="DatePr" FontSize="30" FontFamily="Comic Sans MS" SelectedDate="08/31/1996" Grid.Row="5" Grid.ColumnSpan="4"/>
+                    <DatePicker IsEnabled="False" Name="DatePr" FontSize="30" FontFamily="Comic Sans MS" Grid.Row="5" Grid.ColumnSpan="4"/>
 
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
                         <UC:AutoCompleteTextBox x:Name="LastnameBox"></UC:AutoCompleteTextBox>
@@ -71,7 +71,7 @@
                     <StackPanel Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="4">
                         <UC:AutoCompleteTextBox  x:Name="FirstnameBox"></UC:AutoCompleteTextBox>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="4">
+                    <StackPanel Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="5">
                         <UC:AutoCompleteTextBox  x:Name="SurnameBox"></UC:AutoCompleteTextBox>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="6">
@@ -87,9 +87,12 @@
                         <UC:AutoCompleteTextBox  x:Name="PhoneNumberBox"></UC:AutoCompleteTextBox>
                     </StackPanel>
 
-
-
                     <Button Content="ADD" VerticalAlignment="Center" FontSize="70" Style="{StaticResource GlassButton}" Grid.Row="8" Grid.RowSpan="2" Grid.ColumnSpan="18" Click="Button_Click"></Button>
+                    <CheckBox x:Name="CheckB" Grid.Row="5" Grid.Column="4" Content="CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top" Click="CheckB_Click" >
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="2.5" ScaleY="2.5"/>
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
 
                 </Grid>
             </TabItem>
@@ -144,7 +147,7 @@
                     <TextBlock Name="ShowAddressBlock" Text="Address" Grid.Row="2" Grid.Column="12" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
                     <TextBlock Name="ShowPhoneNumberBlock" Text="Phone Number" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="6" Style="{StaticResource ResourceKey=TBlock}"/>
 
-                    <DatePicker Name="ShowDatePr" FontSize="30" FontFamily="Comic Sans MS" SelectedDate="08/31/1996" Grid.Row="5" Grid.ColumnSpan="4"/>
+                    <DatePicker Name="ShowDatePr" FontSize="30" FontFamily="Comic Sans MS" Grid.Row="5" Grid.ColumnSpan="4"/>
 
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
                         <UC:AutoCompleteTextBox x:Name="ShowLastnameBox" KeyUp="ShowLastnameBox_KeyUp" ></UC:AutoCompleteTextBox>

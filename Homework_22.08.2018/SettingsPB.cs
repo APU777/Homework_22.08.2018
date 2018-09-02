@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace Homework_22._08._2018
 {
-    class SettingsPB
+    internal class SettingsPB
     {
         public bool DefaultSettings(TextBlock _LN, Border _Sex, out byte _A, out byte _B, out byte _FA, out byte _FB, bool _CheckWSize)
         {
@@ -64,5 +64,6 @@ namespace Homework_22._08._2018
             VisualActionPB.BeginFontAnimation(_FM, _FB, _FA);
             VisualActionPB.BeginFontAnimation(_FW, _FB, _FA);
         }
+
     }
 }
