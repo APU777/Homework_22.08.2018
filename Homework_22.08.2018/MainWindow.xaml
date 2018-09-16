@@ -150,7 +150,7 @@
                     <DatePicker Name="ShowDatePr" FontSize="30" FontFamily="Comic Sans MS" Grid.Row="5" Grid.ColumnSpan="4"/>
 
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
-                        <UC:AutoCompleteTextBox x:Name="ShowLastnameBox" KeyUp="ShowLastnameBox_KeyUp" ></UC:AutoCompleteTextBox>
+                        <UC:AutoCompleteTextBox x:Name="ShowLastnameBox" KeyUp="ShowLastnameBox_KeyUp"  ></UC:AutoCompleteTextBox>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="4">
                         <UC:AutoCompleteTextBox  x:Name="ShowFirstnameBox"></UC:AutoCompleteTextBox>

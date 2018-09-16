@@ -185,20 +185,14 @@ namespace Homework_22._08._2018
 
         private void ShowLastnameBox_KeyUp(object sender, KeyEventArgs e)
         {
-            MessageBox.Show(ShowLastnameBox.Text);
-
+            DataBaseCommon.Name = ShowLastnameBox.Text;
+            List<DTablePB> result = new List<DTablePB>();
+            DataGRID.IsReadOnly = true;
+            DataGRID.ItemsSource = DataBaseCommon.ShowData(result, ShowLastnameBox.Text);
         }
 
         private void DataGRID_Loaded(object sender, RoutedEventArgs e)
         {
-            List<DTablePB> result = new List<DTablePB>();
-
-            //result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", true, "31-08-1996", "Ukraine", "Rivne", "Street", "380673339482"));
-            //result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", true, "31-08-1996", "Ukraine", "Rivne", "Street", "3806733111139482"));
-            //result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", true, "31-08-1996", "Ukraine", "Rivne", "Street", "380673339482"));
-            //result.Add(new DTablePB("Prystupa", "Vitaly", "Aleksandrovich", true, "31-0s8-1996", "Ukraine", "Rivne", "Street", "380673339482"));
-            DataGRID.IsReadOnly = true;
-            DataGRID.ItemsSource = DataBaseCommon.ShowData(result);
 
         }
 
@@ -229,7 +223,7 @@ namespace Homework_22._08._2018
                     CheckB.IsChecked = false;
                 }
             }
-        }//Регулярні вирази
+        }
 
 
         private void CheckB_Click(object sender, RoutedEventArgs e)

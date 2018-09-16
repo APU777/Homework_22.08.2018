@@ -18,31 +18,10 @@ namespace Homework_22._08._2018
         private static string connectionString = ConfigurationManager.AppSettings["cnStr"];
         private static DataContext DC = new DataContext(connectionString);
         private static Table<Subscribers> TS = DC.GetTable<Subscribers>();
-        //private static String _Provider = ConfigurationManager.AppSettings["provider"];
-        //private static DbProviderFactory DbPF = DbProviderFactories.GetFactory(_Provider);
-        //private static DbConnection dbConnection = DbPF.CreateConnection();
-        //private static DbCommand DbC = DbPF.CreateCommand();
         /*----------------------------------------------------------------------------------------------------------*/
         static DataBaseCommon()
         {
-            //dbConnection.ConnectionString = connectionString;
-            //try
-            //{
-            //    MessageBox.Show("Open");
-            //    //dbConnection.Open();
-            //   // dbConnection.ChangeDatabase("NameDatabase");
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Database does not responded.");
-            //    MessageBox.Show(ex.Message);
-            //    for (int i = 0; i < 10; ++i)
-            //        Console.Beep();
-            //}
-            //finally
-            //{
-               
-            //}
+           
         }
         public static void AddData(Grid GridTypeArray, bool? _Sex, string _Date)
         {
@@ -62,7 +41,7 @@ namespace Homework_22._08._2018
                 TS.InsertOnSubmit(Sub);
                 DC.SubmitChanges();
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
@@ -74,9 +53,15 @@ namespace Homework_22._08._2018
                 }
             }
         }
-        public static List<DTablePB> ShowData( List<DTablePB> LDTPB)
+        public static string Name { get; set; } 
+        private static bool  Hello(Subscribers _Subscribers)
         {
-            IQueryable<Subscribers> Data = TS.Where(Search => Search.LastName.Contains("Kamal"));
+            return _Subscribers["LastName"].ToString().Contains(Name);
+        }
+        public static List<DTablePB> ShowData( List<DTablePB> LDTPB, string data)
+        {
+            IEnumerable<Subscribers> Data = TS.Where(Hello);
+
             foreach (Subscribers _Data in Data)
             {
                 LDTPB.Add(new DTablePB(_Data.LastName, _Data.FirstName, _Data.SurName, _Data.Sex, _Data.DateOfBirth, _Data.Country, _Data.City, _Data.Address_, _Data.PhoneNumber));
@@ -118,5 +103,9 @@ namespace Homework_22._08._2018
 
         [Column(Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
+
+
+
+        public object this[string index] => (string)GetType().GetProperty(index).GetValue(this);
     }
 }
