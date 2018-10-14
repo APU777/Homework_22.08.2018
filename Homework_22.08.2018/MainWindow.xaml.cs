@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Homework_22._08._2018
 {
@@ -43,16 +34,15 @@ namespace Homework_22._08._2018
 
             for (int i = 15; i < 17; ++i)
                 ((CSWPFAutoCompleteTextBox.UserControls.AutoCompleteTextBox)((StackPanel)Grid_AddType.Children[i]).Children[0]).Text = null;
-
-
-          
         }
         private void SetAuxiliaryData()
         {
+
             String[] _Country = System.IO.File.ReadAllLines(@"../../TEXTData/Countries.txt");
             foreach (var C in _Country)
                 this.CountryBox.AutoSuggestionList.Add(C);
         }
+
         private void SetSizeControls()
         {
             if (ActualWidth >= ((_ScreenWidth * 94) / 100) && ActualHeight  >= ((_ScreenHeight * 85) / 100) || _CheckWindowSize == false)
@@ -154,7 +144,6 @@ namespace Homework_22._08._2018
             }
         }
 
-
         private void ShowBSManBlock_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (IsMouseOver && _CheckSexMouseOVer)
@@ -182,21 +171,12 @@ namespace Homework_22._08._2018
                 _CheckSexMouseOVer = true;
             }
         }
-
-        private void ShowLastnameBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            DataBaseCommon.Name = ShowLastnameBox.Text;
-            List<DTablePB> result = new List<DTablePB>();
-            DataGRID.IsReadOnly = true;
-            DataGRID.ItemsSource = DataBaseCommon.ShowData(result, ShowLastnameBox.Text);
-        }
-
+       
         private void DataGRID_Loaded(object sender, RoutedEventArgs e)
         {
-
+            List<DTablePB> result = new List<DTablePB>();
+            DataGRID.ItemsSource = DataBaseCommon.AllDataSearch(result);
         }
-
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -225,7 +205,6 @@ namespace Homework_22._08._2018
             }
         }
 
-
         private void CheckB_Click(object sender, RoutedEventArgs e)
         {
             if (!DatePr.IsEnabled)
@@ -249,6 +228,115 @@ namespace Homework_22._08._2018
             BSMan.Background = null;
             BSWoman.Background = Brushes.Red;
             _BufferSex = false;
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        private int _LName = 0;
+        private bool _LNameText = true;
+        private int _IndxLName = -1000;
+
+        private void ShowLastnameBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            List<DTablePB> result = new List<DTablePB>();
+
+            if(DataBaseCommon.FieldName.Contains("LastName") == false)
+                DataBaseCommon.FieldName.Add("LastName");
+            
+            if (_LNameText)
+            {
+                if (_LName == 0)
+                {
+                    DataBaseCommon.FieldInfo.Add(ShowLastnameBox.Text);
+                    ++_LName;
+                }
+                _LNameText = false;
+            }
+
+            if (_IndxLName == -3)
+            {
+                if (ShowLastnameBox.Text.Length > 0)
+                {
+                    _IndxLName = DataBaseCommon.FieldInfo.Count - 1;
+                    DataBaseCommon.FieldInfo[_IndxLName] = ShowLastnameBox.Text;
+                    _IndxLName = DataBaseCommon.FieldInfo.IndexOf(ShowLastnameBox.Text);
+                }
+            }
+
+            if (_IndxLName > -1)
+                DataBaseCommon.FieldInfo[_IndxLName] = ShowLastnameBox.Text;
+
+            _IndxLName = DataBaseCommon.FieldInfo.IndexOf(ShowLastnameBox.Text);
+
+            if (ShowLastnameBox.Text.Length == 0)
+            {
+                DataBaseCommon.FieldName.Remove("LastName");
+                _IndxLName  = -3;
+                _LNameText = true;
+            }
+
+            if (DataBaseCommon.FieldName.Count > 0)
+            {
+                DataGRID.IsReadOnly = true;
+                DataGRID.ItemsSource = DataBaseCommon.ShowData(result, ShowLastnameBox.Text);
+            }
+        }
+        ///////////////////////////////////////////////////////////////////////
+        private int _FName = 0;
+        private bool _FNameText = true;
+        private int _IndxFName = -1000;
+        private void ShowFirstnameBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            List<DTablePB> result = new List<DTablePB>();
+
+            if (DataBaseCommon.FieldName.Contains("FirstName") == false)
+                DataBaseCommon.FieldName.Add("FirstName");
+
+            if (_FNameText)
+            {
+                if (_FName == 0)
+                {
+                    DataBaseCommon.FieldInfo.Add(ShowFirstnameBox.Text);
+                    ++_FName;
+                }
+                _FNameText = false;
+            }
+
+            if (_IndxFName == -3)
+            {
+                if (ShowFirstnameBox.Text.Length > 0)
+                {
+                    if (DataBaseCommon.FieldInfo.Count == 1)
+                        _IndxFName = 0;
+                    else
+                        _IndxFName = DataBaseCommon.FieldInfo.Count - 1;         //LOOK AT INDEX!!!  
+                    
+                    DataBaseCommon.FieldInfo[_IndxFName] = ShowFirstnameBox.Text;
+                    _IndxFName = DataBaseCommon.FieldInfo.IndexOf(ShowFirstnameBox.Text);
+                }
+            }
+
+            if (_IndxFName > -1)
+                DataBaseCommon.FieldInfo[_IndxFName] = ShowFirstnameBox.Text;
+
+            _IndxFName = DataBaseCommon.FieldInfo.IndexOf(ShowFirstnameBox.Text);
+
+            if (ShowFirstnameBox.Text.Length == 0)
+            {
+                DataBaseCommon.FieldName.Remove("FirstName");
+                _IndxFName  = -3;
+                _FNameText = true;
+            }
+
+            if (DataBaseCommon.FieldName.Count > 0)
+            {
+                DataGRID.IsReadOnly = true;
+                DataGRID.ItemsSource = DataBaseCommon.ShowData(result, ShowFirstnameBox.Text);
+            }
+        }
+        ///////////////////////////////////////////////////////////////////////
+        private void ShowSurnameBox_KeyUp(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

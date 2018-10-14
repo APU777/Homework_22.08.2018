@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data.Common;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Data.Linq.Mapping;
 using System.Data.Linq;
 using System.Windows.Controls;
-using System.ComponentModel.DataAnnotations;
 
 namespace Homework_22._08._2018
 {
@@ -53,22 +49,48 @@ namespace Homework_22._08._2018
                 }
             }
         }
-        public static string Name { get; set; } 
-        private static bool  Hello(Subscribers _Subscribers)
+        /////////////////////////////////////////
+        public static List<string> FieldName = new List<string>();
+        public static List<string> FieldInfo = new List<string>();
+
+        //////////////////////////////////////////
+        private static bool  SearchFor(Subscribers _Subscribers)
         {
-            return _Subscribers["LastName"].ToString().Contains(Name);
+            switch (FieldName.Count)
+            {
+                case 1:
+                    return _Subscribers[FieldName[0]].ToString().Contains(FieldInfo[0]);
+                    break;
+                case 2:
+                    return _Subscribers[FieldName[0]].ToString().Contains(FieldInfo[0]) && _Subscribers[FieldName[1]].ToString().Contains(FieldInfo[1]);
+                    break;
+            }
+            return true;
         }
+
         public static List<DTablePB> ShowData( List<DTablePB> LDTPB, string data)
         {
-            IEnumerable<Subscribers> Data = TS.Where(Hello);
-
+            IEnumerable<Subscribers> Data = TS.Where(SearchFor);
+            //IEnumerable<Subscribers> Data = TS.Where(e => e.Sex == true);
             foreach (Subscribers _Data in Data)
             {
                 LDTPB.Add(new DTablePB(_Data.LastName, _Data.FirstName, _Data.SurName, _Data.Sex, _Data.DateOfBirth, _Data.Country, _Data.City, _Data.Address_, _Data.PhoneNumber));
             }
             return LDTPB;
         }
+
+        public static List<DTablePB> AllDataSearch(List<DTablePB> LDTPB)
+        {
+            IQueryable<Subscribers> Data = TS.Select(TABLE => TABLE);
+            foreach (Subscribers _Data in Data)
+            {
+                LDTPB.Add(new DTablePB(_Data.LastName, _Data.FirstName, _Data.SurName, _Data.Sex, _Data.DateOfBirth, _Data.Country, _Data.City, _Data.Address_, _Data.PhoneNumber));
+            }
+            return LDTPB;
+        }
+
     }
+
 
     [Table(Name = "Subscribers")]
     public class Subscribers

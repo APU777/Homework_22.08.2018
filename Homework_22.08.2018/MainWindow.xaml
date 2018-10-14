@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:UC ="clr-namespace:CSWPFAutoCompleteTextBox.UserControls"
-        Title="MainWindow" Height="450" Width="800" SizeChanged="Window_SizeChanged" WindowStartupLocation="CenterScreen" >
+        Title="Phone Book" Height="450" Width="800" SizeChanged="Window_SizeChanged" WindowStartupLocation="CenterScreen" >
     
     <Grid ShowGridLines="False" Background="DarkOrchid">
         <TabControl>
@@ -63,7 +63,7 @@
                     <TextBlock Name="AddressBlock" Text="Address" Grid.Row="4" Grid.Column="12" Grid.ColumnSpan="4" Style="{StaticResource ResourceKey=TBlock}"/>
                     <TextBlock Name="PhoneNumberBlock" Text="Phone Number" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="6" Style="{StaticResource ResourceKey=TBlock}"/>
 
-                    <DatePicker IsEnabled="False" Name="DatePr" FontSize="30" FontFamily="Comic Sans MS" Grid.Row="5" Grid.ColumnSpan="4"/>
+                    <DatePicker  IsEnabled="False" Name="DatePr" FontSize="30" FontFamily="Comic Sans MS" Grid.Row="5" Grid.ColumnSpan="4"/>
 
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
                         <UC:AutoCompleteTextBox x:Name="LastnameBox"></UC:AutoCompleteTextBox>
@@ -153,10 +153,10 @@
                         <UC:AutoCompleteTextBox x:Name="ShowLastnameBox" KeyUp="ShowLastnameBox_KeyUp"  ></UC:AutoCompleteTextBox>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="4">
-                        <UC:AutoCompleteTextBox  x:Name="ShowFirstnameBox"></UC:AutoCompleteTextBox>
+                        <UC:AutoCompleteTextBox  x:Name="ShowFirstnameBox" KeyUp="ShowFirstnameBox_KeyUp"></UC:AutoCompleteTextBox>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="4">
-                        <UC:AutoCompleteTextBox  x:Name="ShowSurnameBox"></UC:AutoCompleteTextBox>
+                        <UC:AutoCompleteTextBox  x:Name="ShowSurnameBox" KeyUp="ShowSurnameBox_KeyUp"></UC:AutoCompleteTextBox>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6">
                         <UC:AutoCompleteTextBox  x:Name="ShowCountryBox"></UC:AutoCompleteTextBox>
